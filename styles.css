@@ -1,0 +1,34 @@
+.container {
+  max-width: 400px;
+  margin: 10vh auto 0 auto;
+}
+
+#calcDisplay {
+  text-align: right;
+  height: 70px;
+  line-height: 70px;
+  font-size: 25px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 5px;
+}
+.buttons .button {
+  border: 0.5px solid #999;
+  line-height: 100px;
+  text-align: center;
+  font-size: 25px;
+  cursor: pointer;
+}
+.buttons .button:hover {
+  background-color: #313130;
+  color: white;
+  transition: 0.5s ease-in-out;
+}
+
+#equal {
+  background-color: blue;
+  color: white;
+}/*# sourceMappingURL=styles.css.map */
