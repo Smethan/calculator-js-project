@@ -1,5 +1,12 @@
 let display = document.getElementById('calcDisplay');
 
+function setEndOfContenteditable(elem) {
+    let sel = window.getSelection();
+    sel.selectAllChildren(elem);
+    sel.collapseToEnd();
+}
+
+
 let buttons = Array.from(document.querySelectorAll('.button'));
 console.log(buttons);
 
@@ -20,7 +27,9 @@ buttons.map(button => {
                 }
                 break;
             case '←':
-                if (display.innerText) {
+                if (display.innerText == 'Error') {
+                    display.innerText = '';
+                } else if (display.innerText) { 
                     display.innerText = display.innerText.slice(0, -1);
                 }
                 break;
@@ -40,5 +49,6 @@ buttons.map(button => {
             default:
                 display.innerText += e.target.innerText;
         }
+        setEndOfContenteditable(display);
     });
 })

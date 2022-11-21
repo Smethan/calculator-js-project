@@ -1,6 +1,16 @@
+* {
+    font-family: sans-serif;
+}
+
 .container {
-    max-width: 400px;
+    max-width: 800px;
     margin: 10vh auto 0 auto;
+    background-color: #999;
+}
+
+.test {
+    background-color: #999;
+    padding: 10px;
 }
 
 #calcDisplay {
@@ -8,19 +18,39 @@
     height: 70px;
     line-height: 70px;
     font-size: 25px;
+    padding: 16px 8px;
+    background-color: white;
+    caret-color: transparent !important;
+    outline: 0px;
 }
 
 .buttons {
     display: grid;
+    padding: 0 10px 10px 10px;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 5px;
 
     .button {
+        background-color: white;
         border: 0.5px solid #999;
         line-height: 100px;
         text-align: center;
         font-size: 25px;
         cursor: pointer;
+        user-select: none;
+        transition: 0.5s ease-in-out;
+    }
+
+    #equal {
+        background-color: blue;
+        color: white;  
+        transition: 0.5s ease-in-out;
+    }
+
+    #equal:hover {
+        background-color: #313130;
+        color: white;
+        transition: 0.5s ease-in-out;
     }
 
     .button:hover {
@@ -32,7 +62,3 @@
     
 }
 
-#equal {
-      background-color: blue;
-      color: white;  
-}
