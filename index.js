@@ -97,7 +97,8 @@ buttons.map((button) => {
                 }
                 break;
             default:
-                // adds the text inside the button to the display, could be more secure
+                // adds the text inside the button to the display
+                // todo: add regex to force numbers and symbols
                 display.innerText += e.target.innerText;
         }
         setEndOfContenteditable(display);
