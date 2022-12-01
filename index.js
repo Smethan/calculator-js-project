@@ -11,9 +11,17 @@ function setEndOfContenteditable(elem) {
 }
 
 function evaluateMath(expression) {
-  //evaluate expression with math.js evaluate
-  let result = math.evaluate(expression);
-  // if error, return error, else return result
+  let result;
+  try {
+    // try to evaluate expression with math.js evaluate
+    result = math.evaluate(expression);
+  } catch {
+    // if math.evaluate throws a js error, return error
+    // mostly used to handle strings being input into the calculator textbox
+    result = "Error";
+  }
+  // if math.evaluate passes, but returns Infinity, returen error, else return the value
+  // handles division by zero
   return result === "Infinity" ? "Error" : result;
 }
 
@@ -38,13 +46,8 @@ buttons.map((button) => {
         display.innerText = "";
         break;
       case "=":
-        try {
-          // try to evaulate the expression
-          display.innerText = evaluateMath(display.innerText);
-        } catch {
-          // catch all, if something goes wrong, display error
-          display.innerText = "Error";
-        }
+        display.innerText = evaluateMath(display.innerText);
+
         break;
       case "←":
         // if it says error, delete the entire string for convenience
@@ -58,18 +61,26 @@ buttons.map((button) => {
       case "√":
         try {
           // evaluate any expression inside the calc, then take the square root
-          display.innerText = math.sqrt(math.evaluate(display.innerText));
+          display.innerText = math.sqrt(evaluateMath(display.innerText));
         } catch {
           display.innerText = "Error";
         }
         break;
       case "𝑥²":
         // square the evaluated expression
-        display.innerText = math.pow(math.evaluate(display.innerText), 2);
+        try {
+          display.innerText = math.pow(evaluateMath(display.innerText), 2);
+        } catch {
+          display.innerText = "Error";
+        }
         break;
       case "1/𝑥":
         // take the inverse square of the evaluated expression
-        display.innerText = math.pow(math.evaluate(display.innerText), -1);
+        try {
+          display.innerText = math.pow(evaluateMath(display.innerText), -1);
+        } catch {
+          display.innerText = "Error";
+        }
         break;
       default:
         // adds the text inside the button to the display, could be more secure
