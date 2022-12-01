@@ -10,6 +10,24 @@ function setEndOfContenteditable(elem) {
   sel.collapseToEnd();
 }
 
+function evaluateMath(expression) {
+  //evaluate expression with math.js evaluate
+  let result = math.evaluate(expression);
+  // if error, return error, else return result
+  return result === "Infinity" ? "Error" : result;
+}
+
+// add event listener to display to prevent default enter key behavior
+// without this, pressing enter will create a new line in the display
+// that makes the math function return an array, and hides text if you press enter
+display.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    display.innerText = evaluateMath(display.innerText);
+    setEndOfContenteditable(display);
+  }
+});
+
 let buttons = Array.from(document.querySelectorAll(".button"));
 
 //add event listeners to buttons
@@ -21,12 +39,8 @@ buttons.map((button) => {
         break;
       case "=":
         try {
-          // try to evaulate the expression using the math.js evaluate function
-          display.innerText = math.evaluate(display.innerText);
-          // if it is infinity, display error
-          if (display.innerText === "Infinity") {
-            display.innerText = "Error";
-          }
+          // try to evaulate the expression
+          display.innerText = evaluateMath(display.innerText);
         } catch {
           // catch all, if something goes wrong, display error
           display.innerText = "Error";
